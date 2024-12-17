@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ระบบส่งงาน</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>ระบบส่งงาน</h2>
+        <div class="form-container">
+            <!-- ฟอร์มสำหรับส่งงาน -->
+            <div class="form-box task-form">
+                <h3>ส่งงาน</h3>
+                <form id="task-form">
+                    <!-- เพิ่มฟิลด์รหัสพนักงาน -->
+                    <label for="empID">รหัสพนักงาน:</label>
+                    <input type="text" id="empID" required placeholder="กรอกรหัสพนักงาน">
+
+                    <!-- เพิ่มฟิลด์ชื่อ-นามสกุล -->
+                    <label for="empName">ชื่อ-นามสกุล:</label>
+                    <input type="text" id="empName" required placeholder="กรอกชื่อและนามสกุล">
+
+                    <!-- เพิ่มฟิลด์แผนก/ฝ่าย -->
+                    <label for="empDepartment">แผนก/ฝ่าย:</label>
+                    <input type="text" id="empDepartment" required placeholder="กรอกแผนก/ฝ่าย">
+
+                    <!-- ฟอร์มเลือกหัวข้อส่งงาน -->
+                    <label for="taskSelect">เลือกหัวข้อส่งงาน:</label>
+                    <select id="taskSelect" required>
+                        <option value="">-- เลือกหัวข้อ --</option>
+                        <option value="หัวข้อ A3">หัวข้อ A3</option>
+                        <option value="หัวข้อ โปรเจค">หัวข้อ โปรเจค</option>
+                        <option value="หัวข้อ Kaizen 1">หัวข้อ Kaizen 1</option>
+                        <option value="หัวข้อ Kaizen 2">หัวข้อ Kaizen 2</option>
+                    </select>
+
+                    <label for="taskDesc">อธิบายเบื้องต้น:</label>
+                    <textarea id="taskDesc" required placeholder="กรอกอธิบายเบื้องต้นเกี่ยวกับงาน"></textarea>
+
+                    <label for="taskFile">เลือกไฟล์ส่งงาน:</label>
+                    <input type="file" id="taskFile" accept=".jpg, .jpeg, .png, .pdf, .xls, .xlsx, .doc, .docx" required>
+
+                    <button type="submit">ส่งงาน</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="submit.js"></script>
+</body>
+</html>
