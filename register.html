@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>e-Learning สำหรับอบรมพนักงาน</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <img src="assets/Bitwise-BW.png" alt="โลโก้บริษัท" class="logo">
+            <h1>e-Learning สำหรับอบรมพนักงาน</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">หน้าแรก</a></li>
+                    <li><a href="course.html">หลักสูตร</a></li>
+                    <li><a href="#">ข่าวสาร</a></li>
+                    <li><a href="contact.html">ติดต่อเรา</a></li>
+                    <li><a href="register.html">ลงชื่ออบรม</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="register">
+        <h2>ลงชื่อเข้าอบรม</h2>
+        <form id="signup-form">
+            <label for="name">ชื่อ:</label>
+            <input type="text" id="name" name="name" required><br><br>
+
+            <label for="email">อีเมล:</label>
+            <input type="email" id="email" name="email" required><br><br>
+
+            <label for="phone">เบอร์โทรศัพท์:</label>
+            <input type="text" id="phone" name="phone" required><br><br>
+
+            <label for="course">หลักสูตรที่ลงทะเบียน:</label>
+            <select id="course" name="course" required>
+                <option value="">-- เลือกหลักสูตร --</option>
+                <option value="หลักสูตร A">เครื่องปรับอากาศโซลาร์ไฮบริด TASAKI</option>
+                <option value="หลักสูตร B">หลักสูตร B</option>
+                <option value="หลักสูตร C">หลักสูตร C</option>
+            </select><br><br>
+
+            <button type="submit">ลงชื่อเข้าอบรม</button>
+        </form>
+    </section>
+
+    <div class="container footer-container">
+        <p>© 2024 e-Learning สำหรับอบรมพนักงาน | <a href="#">นโยบายความเป็นส่วนตัว</a></p>
+    </div>
+
+    <script>
+        document.getElementById('signup-form').addEventListener('submit', function(e) {
+            e.preventDefault(); // ป้องกันไม่ให้ฟอร์มส่งข้อมูลแบบปกติ
+
+            // รับข้อมูลจากฟอร์ม
+            var name = document.getElementById('name').value;
+            var email = document.getElementById('email').value;
+            var phone = document.getElementById('phone').value;
+            var course = document.getElementById('course').value;
+
+            // สร้างคะแนนจำลอง (ตัวอย่างคะแนนที่ได้รับ)
+            var score = 8; // คะแนนสามารถคำนวณหรือดึงจากฟอร์มอื่น ๆ ได้
+
+            // สร้าง Canvas เพื่อวาดรูปคะแนน
+            var canvas = document.createElement("canvas");
+            var ctx = canvas.getContext("2d");
+
+            canvas.width = 600;
+            canvas.height = 400;
+
+            // พื้นหลังของรูปภาพ
+            ctx.fillStyle = "#f0f0f0";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // เขียนข้อมูลลงในรูปภาพ
+            ctx.font = "30px 'Prompt', sans-serif";
+            ctx.fillStyle = "#000";
+            ctx.fillText("คะแนนของคุณ: " + score + "/10", 50, 50);
+            ctx.fillText("ชื่อ: " + name, 50, 100);
+            ctx.fillText("อีเมล: " + email, 50, 150);
+            ctx.fillText("เบอร์โทรศัพท์: " + phone, 50, 200);
+            ctx.fillText("หลักสูตรที่ลงทะเบียน: " + course, 50, 250);
+
+            // สร้างลิงค์ดาวน์โหลดไฟล์ภาพ
+            var link = document.createElement('a');
+            link.href = canvas.toDataURL("image/png");
+            link.download = 'คะแนนของคุณ.png';
+            link.click();
+
+            // ดาวน์โหลดข้อมูลลงใน Excel
+            var userData = [
+                ['ชื่อ', 'อีเมล', 'เบอร์โทรศัพท์', 'หลักสูตร', 'คะแนน'],
+                [name, email, phone, course, score]
+            ];
+
+            var ws = XLSX.utils.aoa_to_sheet(userData);
+            var wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, 'ลงชื่อเข้าอบรม');
+
+            var excelLink = document.createElement('a');
+            excelLink.href = URL.createObjectURL(new Blob([XLSX.write(wb, { bookType: 'xlsx', type: 'binary' })], { type: 'application/octet-stream' }));
+            excelLink.download = 'ลงชื่อเข้าอบรม.xlsx';
+            excelLink.click();
+        });
+    </script>
+</body>
+</html>
